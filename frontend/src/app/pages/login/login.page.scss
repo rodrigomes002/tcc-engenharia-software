@@ -1,0 +1,100 @@
+$primary-color: #47d397;
+$green-color: #004b2b;
+$white-color: #fff;
+$black-color: #000000;
+$light-color: #f9f8f6;
+$green-light-color: #5ce2a9;
+
+$font-16: 16px;
+$font-24: 24px;
+$font-32: 32px;
+
+:host ::ng-deep .p-button {
+  font-size: $font-16;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.container {
+  height: 100vh;
+}
+
+.cadastro {
+  background-color: $primary-color;
+  width: 382px;
+  height: 446px;
+  text-align: center;
+}
+
+.cadastro p {
+  margin-top: 70px;
+}
+
+.cadastro button {
+  margin-right: 75px;
+}
+
+.login {
+  background-color: $white-color;
+  width: 382px;
+  height: 446px;
+}
+
+.login h1 {
+  text-align: center;
+}
+
+.font-bold-24-white {
+  font-size: $font-24;
+  font-weight: bold;
+  color: $white-color;
+}
+
+.font-bold-32-title {
+  font-size: $font-32;
+  font-weight: bold;
+  color: $white-color;
+}
+
+.button-light {
+  background-color: $light-color;
+  color: $black-color;
+  border: none;
+}
+
+.button-light:hover {
+  background-color: $white-color;
+  color: $black-color;
+}
+
+.button-green {
+  background-color: $primary-color;
+  color: $green-color;
+  border: none;
+  margin-top: 30px;
+}
+
+.button-green:hover {
+  background-color: $green-light-color;
+  color: $green-color;
+}
+
+.form {
+  height: 300px;
+  margin-top: 10px;
+}
+
+.input {
+  width: 304px;
+  height: 40px;
+}
+
+:host ::ng-deep .p-password-input {
+  width: 304px;
+  height: 40px;
+}
+
+.margin-top {
+  margin-top: 30px;
+}

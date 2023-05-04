@@ -1,0 +1,95 @@
+<div class="container flex align-items-center justify-content-center">
+  <div class="cadastro">
+    <div class="margin-top30">
+      <h1 class="font-bold-32-title">Health Jobs</h1>
+
+      <p class="font-bold-24-white">Já possui conta?</p>
+      <div class="margin-top30">
+        <button
+          class="button-light"
+          pButton
+          type="button"
+          label="Login"
+          routerLink="/login"
+        ></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="login">
+    <div class="margin-top30">
+      <h1>Cadastre-se</h1>
+
+      <div class="form margin-top30">
+        <form #loginForm="ngForm" class="flex flex-wrap justify-content-center">
+          <div>
+            <div>
+              <label for="email">Email</label>
+            </div>
+            <div>
+              <input
+                [(ngModel)]="usuarioform.email"
+                required
+                name="email"
+                class="input"
+                type="text"
+                id="email"
+                pInputText
+              />
+            </div>
+          </div>
+
+          <div>
+            <div class="margin-top30">
+              <label for="senha">Senha</label>
+            </div>
+            <div>
+              <p-password
+                required
+                [(ngModel)]="usuarioform.senha"
+                [feedback]="false"
+                [toggleMask]="true"
+                inputId="senha"
+                name="senha"
+              ></p-password>
+            </div>
+            <div class="margin-top30">
+              <p-radioButton
+                required
+                name="tipo"
+                value="Profissional"
+                inputId="profissional"
+                [(ngModel)]="usuarioform.tipo"
+                required
+              ></p-radioButton>
+              <label class="margin-right15 margin-left5" for="profissional"
+                >Profissional</label
+              >
+
+              <p-radioButton
+                name="tipo"
+                value="Empresa"
+                inputId="empresa"
+                [(ngModel)]="usuarioform.tipo"
+              ></p-radioButton>
+              <label class="margin-right margin-left5" for="empresa"
+                >Empresa</label
+              >
+            </div>
+
+            <div>
+              <button
+                [disabled]="loginForm.invalid"
+                (click)="cadastrar()"
+                class="button-green"
+                pButton
+                type="button"
+                label="Cadastre-se"
+              ></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="container flex align-items-center justify-content-center">
+  <div class="cadastro">
+    <div class="margin-top30">
+      <h1 class="font-bold-32-title">Health Jobs</h1>
+
+      <p class="font-bold-24-white">Não possui conta?</p>
+      <div class="margin-top30">
+        <button
+          class="button-light"
+          pButton
+          type="button"
+          label="Cadastre-se"
+          routerLink="/cadastro"
+        ></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="login">
+    <div class="margin-top30">
+      <h1>Login</h1>
+
+      <div class="form margin-top30">
+        <form #loginForm="ngForm" class="flex flex-wrap justify-content-center">
+          <div>
+            <div>
+              <label for="email">Email</label>
+            </div>
+            <div>
+              <input
+                [(ngModel)]="usuarioform.email"
+                class="input"
+                type="text"
+                id="email"
+                name="email"
+                pInputText
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <div class="margin-top30">
+              <label for="senha">Senha</label>
+            </div>
+            <div>
+              <p-password
+                [(ngModel)]="usuarioform.senha"
+                [feedback]="false"
+                [toggleMask]="true"
+                inputId="senha"
+                name="senha"
+                required
+              ></p-password>
+            </div>
+            <div>
+              <button
+                [disabled]="loginForm.invalid"
+                (click)="login()"
+                class="button-green"
+                pButton
+                type="button"
+                label="Acessar"
+              ></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

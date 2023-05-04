@@ -1,0 +1,174 @@
+$primary-color: #47d397;
+$green-color: #004b2b;
+$white-color: #fff;
+$black-color: #000000;
+$light-color: #f9f8f6;
+$green-light-color: #5ce2a9;
+
+$font-16: 16px;
+$font-18: 18px;
+$font-24: 24px;
+$font-32: 32px;
+
+.header {
+  max-width: 1200px;
+  padding: 20px 20px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.header-menu li a {
+  color: $green-color;
+  font-size: $font-18;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.introducao {
+  max-width: 1200px;
+  padding: 80px 20px;
+  margin: 0 auto;
+}
+
+.introducao-bg {
+  background: #3d3d3d;
+}
+
+.introducao p {
+  color: #fff;
+  text-align: center;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.vaga {
+  grid-area: vaga;
+  margin: 20px;
+}
+
+.vaga-bg {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.texto {
+  padding: 20px;
+}
+
+.texto p {
+  padding: 8px;
+}
+
+.quantidade {
+  padding-left: 20px;
+  padding-top: 15px;
+  grid-area: quantidade;
+}
+
+.quantidade strong {
+  color: $green-color;
+}
+
+.form {
+  grid-area: filtro;
+}
+
+form {
+  background-color: #fff;
+  width: 274px;
+  height: 600px;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.template-areas {
+  display: grid;
+  grid-template-areas:
+    "quantidade ordenar filtro"
+    "vaga vaga filtro";
+}
+
+.ordenar {
+  text-align: end;
+  grid-area: ordenar;
+  margin-right: 20px;
+}
+
+.footer {
+  max-width: 1200px;
+  height: 300px;
+  padding: 20px 20px;
+  margin: 0 auto;
+  font-size: 12px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.footer-bg {
+  background-color: #3d3d3d;
+  color: #fff;
+}
+
+.footer div p {
+  margin-top: 20px;
+}
+
+.direitos {
+  border-top: 0.5px solid #f5f5f5;
+  padding: 20px 0;
+}
+
+.button-green {
+  background-color: $primary-color;
+  color: $green-color;
+  border: none;
+  margin-right: 30px;
+}
+
+.button-green:hover {
+  background-color: $green-light-color;
+  color: $green-color;
+}
+
+.button-white {
+  background-color: $white-color;
+  color: $black-color;
+  border: none;
+}
+
+.button-white:hover {
+  background-color: $white-color;
+  color: $black-color;
+}
+
+.button-candidato {
+  background-color: $light-color;
+  color: $green-color;
+}
+
+:host ::ng-deep .p-multiselect {
+  width: 220px;
+  height: 40px;
+}
+
+label {
+  font-weight: bold;
+}
+
+:host ::ng-deep .p-paginator {
+  background-color: #f9f8f6;
+}

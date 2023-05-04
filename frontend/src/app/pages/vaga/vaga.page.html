@@ -1,0 +1,135 @@
+<header class="header">
+  <h1>HEALTH JOBS</h1>
+  <nav>
+    <ul class="header-menu">
+      <li><a routerLink="vagas">Ver vagas</a></li>
+      <li *ngIf="isPerfil('Empresa')"><a routerLink="postar">Postar</a></li>
+      <li>{{usuario.email}}</li>
+      <li><a href="" (click)="usuarioService.logout()">Sair</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="introducao-bg">
+  <div class="introducao">
+    <p>
+      As melhores vagas para <br />
+      profissionais da área da saúde
+    </p>
+  </div>
+</main>
+
+<div class="container">
+  <div class="template-areas">
+    <div class="quantidade">
+      <strong>{{this.count}} vagas</strong> disponíveis
+    </div>
+
+    <div class="ordenar">
+      <button
+        class="button-white"
+        pButton
+        type="button"
+        label="Ordenar"
+      ></button>
+    </div>
+
+    <div class="form">
+      <form class="border-radius">
+        <h2>Filtre sua busca</h2>
+        <div>
+          <div class="margin-top30">
+            <label for="cargo">Cargo</label>
+          </div>
+          <div class="width-225">
+            <p-multiSelect
+              name="cargo"
+              id="cargo"
+              optionLabel="cargo"
+              [options]="cargos"
+              [(ngModel)]="cargoSelecionada"
+            ></p-multiSelect>
+          </div>
+        </div>
+        <div>
+          <div class="margin-top20">
+            <label for="local">Local</label>
+          </div>
+          <div class="width-225">
+            <p-multiSelect
+              name="local"
+              id="local"
+              optionLabel="local"
+              [options]="locais"
+              [(ngModel)]="localSelecionado"
+            ></p-multiSelect>
+          </div>
+        </div>
+        <div class="margin-top20">
+          <button
+            class="button-green"
+            pButton
+            type="button"
+            label="Buscar"
+            (click)="listar()"
+          ></button>
+        </div>
+      </form>
+    </div>
+
+    <div class="vaga">
+      <div
+        style="text-align: center; font-size: 18px"
+        *ngIf="vagas.length == 0"
+      >
+        Nenhuma vaga disponível
+      </div>
+
+      <div class="vaga-bg border-radius" *ngFor="let vaga of vagas">
+        <div class="texto">
+          <p><strong>{{vaga.cargo}}</strong></p>
+          <p>{{vaga.local}}</p>
+          <p>R$ {{vaga.salario}} por mês - Tempo integral</p>
+          <p>{{vaga.descricao}}</p>
+          <div class="margin-top20">
+            <button
+              (click)="candidatarSe(vaga)"
+              class="button-green"
+              pButton
+              type="button"
+              label="CANDIDATAR-SE"
+            ></button>
+          </div>
+        </div>
+      </div>
+
+      <p-paginator
+        *ngIf="this.count > 0"
+        [rows]="10"
+        [totalRecords]="this.count"
+        (onPageChange)="mudarPagina($event)"
+        #dataPaginator
+      ></p-paginator>
+    </div>
+  </div>
+</div>
+
+<footer class="footer-bg">
+  <div class="footer">
+    <div>
+      <p>HEALTH JOBS</p>
+      <p>+55(21) 0000-0000</p>
+      <p>Rua. Algum lugar 201, <br />Rio de Janeiro - RJ <br />00000-000.</p>
+    </div>
+    <div>
+      <p>PARA PROFISSIONAIS DA SAÚDE</p>
+      <p>Médicos</p>
+      <p>Fisioterapeutas</p>
+      <p>Terapeutas ocupacionais</p>
+      <p>Enfermeiros</p>
+    </div>
+  </div>
+  <div class="direitos">
+    <p>© 2022 - 2022 VAGAS | HEALTH. Todos os direitos reservados.</p>
+  </div>
+</footer>

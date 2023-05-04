@@ -1,0 +1,81 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+html,
+body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0px;
+  padding: 0px;
+
+  font-family: "Inter", sans-serif;
+  background-color: #f9f8f6;
+  color: #141414;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 20px 20px;
+  margin: 0 auto;
+
+  align-items: center;
+  background-color: #f9f8f6;
+}
+
+.border-radius {
+  box-shadow: 1px 1px 4px rgba(171, 171, 171, 0.25);
+  border-radius: 4px;
+}
+
+.margin-top20 {
+  margin-top: 20px;
+}
+
+.padding-top30 {
+  padding-top: 30px;
+}
+
+.margin-top30 {
+  margin-top: 30px;
+}
+
+.margin-right15 {
+  margin-right: 15px;
+}
+
+.margin-left5 {
+  margin-left: 5px;
+}
+
+.width-225 {
+  width: 225px;
+}
+
+.width-300 {
+  width: 300px;
+}

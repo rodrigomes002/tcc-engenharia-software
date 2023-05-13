@@ -22,6 +22,7 @@ export class VagaPage extends BasePage implements OnInit {
   localSelecionado: LocalFilter[] = [];
   vagaFilter: VagaFilter = new VagaFilter();
   count: number;
+  candidaturas: any[]=[];
   constructor(
     usuarioService: UsuarioService,
     private service: VagaService,
@@ -41,8 +42,18 @@ export class VagaPage extends BasePage implements OnInit {
     this.notificacaoService.loading();
     this.service.listarPorFiltro(this.vagaFilter).subscribe((response) => {
       let result = response as VagaResult;
+
+      result.vagas.forEach(v=> {
+        v.candidaturas.forEach(c=> {
+          if(c.candidato == this.usuario.email){
+            v.candidaturaEnviada = true;
+          }
+        })
+      })
+
       this.vagas = result.vagas;
       this.count = result.count;
+      console.log(this.vagas);
       this.notificacaoService.loaded().subscribe(() => {});
     });
   }
@@ -68,7 +79,7 @@ export class VagaPage extends BasePage implements OnInit {
     this.notificacaoService.loading();
     this.service.candidatarSe(candadatura).subscribe(
       (response) => {
-        this.notificacaoService.loaded().subscribe(() => {});
+        this.listar();
       },
       (error) => {
         this.notificacaoService.loaded().subscribe(() => {});

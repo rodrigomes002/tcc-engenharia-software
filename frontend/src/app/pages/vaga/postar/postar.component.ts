@@ -1,7 +1,7 @@
 import { VagaService } from './../../../services/vaga.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CadastrarVagaDTO, Vaga } from 'src/app/models/vaga';
+import { CadastrarVagaDTO } from 'src/app/models/vaga';
 import { NotificacaoService } from 'src/app/services/notificacao.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { BasePage } from '../../base-page';

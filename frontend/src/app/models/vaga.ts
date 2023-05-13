@@ -20,5 +20,12 @@ export class Vaga {
   salario: number;
   descricao: string;
   local: string;
+  candidaturas: Candidatura[];
+  candidaturaEnviada: boolean = false;
+}
+
+export class Candidatura{
+  id?: number;
+  vaga: Vaga;
   candidato: string;
 }

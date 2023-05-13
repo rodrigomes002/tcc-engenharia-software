@@ -46,8 +46,6 @@ export class CadastroPage extends BasePage implements OnInit {
       this.notificacaoService.loading();
       this.service.cadastrar(usuario).subscribe(
         (response) => {
-          this.notificacaoService.success('Usuário cadastrado com sucesso');
-
           let usuario = response as UsuarioToken;
 
           if (usuario.authenticated) {

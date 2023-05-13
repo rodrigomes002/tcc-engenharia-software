@@ -1,4 +1,4 @@
-﻿namespace HealthJobs.Domain.Vagas.Filtro
+﻿namespace HealthJobs.Domain.Vagas.Filtros
 {
     public class VagaFiltro : PageFiltro
     {

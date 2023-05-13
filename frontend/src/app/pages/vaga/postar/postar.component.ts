@@ -46,10 +46,12 @@ export class PostarComponent extends BasePage implements OnInit {
           this.limparForm();
         },
         (errors) => {
-          errors.forEach((error: any) => {
-            let mensagem = JSON.stringify(error.description);
-            this.notificacaoService.error(mensagem);
-          });
+          if(errors.length > 0){
+            errors.forEach((error: any) => {
+              let mensagem = JSON.stringify(error.description);
+              this.notificacaoService.error(mensagem);
+            });
+          }
         }
       );
     }

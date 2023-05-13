@@ -10,13 +10,16 @@ namespace HealthJobs.Application.Autenticacao.Services
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
         private readonly IConfiguration _configuration;
 
-        public UsuarioService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration)
+        public UsuarioService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._configuration = configuration;
+            this._roleManager = roleManager;
         }
 
         public async Task<LoginResult> Login(LoginDTO dto)
@@ -24,7 +27,7 @@ namespace HealthJobs.Application.Autenticacao.Services
             var signIn = await _signInManager.PasswordSignInAsync(dto.Email,
                  dto.Senha, isPersistent: false, lockoutOnFailure: false);
             var usuario = await _signInManager.UserManager.FindByEmailAsync(dto.Email);
-            
+
             var result = new LoginResult();
             result.Result = signIn;
             result.User = usuario;
@@ -40,12 +43,21 @@ namespace HealthJobs.Application.Autenticacao.Services
                 UserName = dto.Email,
                 Email = dto.Email,
                 EmailConfirmed = false,
+
             };
 
             var identityResult = await _userManager.CreateAsync(user, dto.Senha);
 
-            if(identityResult.Succeeded)
-                await _userManager.AddToRoleAsync(user, dto.Tipo);
+            if (identityResult.Succeeded)
+            {
+                var role = new IdentityRole
+                {
+                    Name = dto.Tipo
+                };
+                await _roleManager.CreateAsync(role);
+
+                await _userManager.AddToRoleAsync(user, role.Name);
+            }
 
             var result = new CadastrarResult();
             result.User = user;

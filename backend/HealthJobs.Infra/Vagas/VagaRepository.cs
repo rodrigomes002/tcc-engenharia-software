@@ -1,5 +1,5 @@
 ﻿using HealthJobs.Domain.Vagas;
-using HealthJobs.Domain.Vagas.Filtro;
+using HealthJobs.Domain.Vagas.Filtros;
 using HealthJobs.Domain.Vagas.Interface;
 using HealthJobs.Infra.Context;
 using Microsoft.EntityFrameworkCore;

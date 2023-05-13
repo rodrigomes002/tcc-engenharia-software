@@ -2,7 +2,7 @@ using HealthJobs.Application.Vagas.Commands;
 using HealthJobs.Application.Vagas.DTOs;
 using HealthJobs.Application.Vagas.Handlers;
 using HealthJobs.Domain.Vagas;
-using HealthJobs.Domain.Vagas.Filtro;
+using HealthJobs.Domain.Vagas.Filtros;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +21,7 @@ namespace HealthJobs.API.Controllers
             _service = service;
         }
 
-        [HttpGet, Route("vagas")]        
+        [HttpGet, Route("vagas")]
         public async Task<List<Vaga>> ListarVagas()
         {
             try

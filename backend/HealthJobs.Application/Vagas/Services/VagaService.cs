@@ -1,7 +1,7 @@
 ﻿using HealthJobs.Application.Vagas.Commands;
 using HealthJobs.Application.Vagas.DTOs;
 using HealthJobs.Domain.Vagas;
-using HealthJobs.Domain.Vagas.Filtro;
+using HealthJobs.Domain.Vagas.Filtros;
 using HealthJobs.Domain.Vagas.Interface;
 using HealthJobs.Infra.UoW;
 

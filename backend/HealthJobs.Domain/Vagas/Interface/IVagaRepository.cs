@@ -1,4 +1,4 @@
-﻿using HealthJobs.Domain.Vagas.Filtro;
+﻿using HealthJobs.Domain.Vagas.Filtros;
 
 namespace HealthJobs.Domain.Vagas.Interface
 {

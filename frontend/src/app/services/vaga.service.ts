@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Filtros } from '../models/filter/filtros';
 import { CadastrarVagaDTO, Vaga } from '../models/vaga';
-import { environment } from '../../environments/environment.prod'
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root',

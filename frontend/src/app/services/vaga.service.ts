@@ -4,12 +4,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Filtros } from '../models/filter/filtros';
 import { CadastrarVagaDTO, Vaga } from '../models/vaga';
+import { environment } from '../../environments/environment.prod'
 
 @Injectable({
   providedIn: 'root',
 })
 export class VagaService {
-  private url = 'https://localhost:7260/api/vaga';
+  private url = environment.baseUrl +'/api/vaga';
   constructor(private http: HttpClient) {}
 
   cadastrar(usuario: CadastrarVagaDTO) {

@@ -5,11 +5,13 @@ import { Login } from '../models/login';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment'
+
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  private url = 'https://localhost:7260/api/usuario';
+  private url = environment.baseUrl + '/api/usuario';
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser = new Observable<Usuario>();
   constructor(private http: HttpClient, private router: Router) {

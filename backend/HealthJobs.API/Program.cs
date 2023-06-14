@@ -38,10 +38,39 @@ if (env == "Production")
     };
 
     builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(pgBuilder.ConnectionString));
+
+    var audience = Environment.GetEnvironmentVariable("Audience");
+    var issuer = Environment.GetEnvironmentVariable("Issuer");
+    var key = Environment.GetEnvironmentVariable("JwtKey");
+
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidAudience = audience,
+        ValidIssuer = issuer,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+    }
+    );
 }
 else
 {
     builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+   .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+   {
+       ValidateIssuer = true,
+       ValidateAudience = true,
+       ValidateLifetime = true,
+       ValidAudience = builder.Configuration["TokenConfiguration:Audience"],
+       ValidIssuer = builder.Configuration["TokenConfiguration:Issuer"],
+       ValidateIssuerSigningKey = true,
+       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+   }
+   );
 }
 
 builder.Services.AddScoped<VagaService>();
@@ -56,18 +85,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidAudience = builder.Configuration["TokenConfiguration:Audience"],
-        ValidIssuer = builder.Configuration["TokenConfiguration:Issuer"],
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-    }
-);
+
 
 builder.Services.AddCors(option =>
 {

@@ -20,6 +20,12 @@ namespace HealthJobs.Application.Usuarios.Services
 
         public async Task<UsuarioToken> GeraToken(IdentityUser user)
         {
+            var env = Environment.GetEnvironmentVariable("Audience");
+            var jwtAudience = env == "Production" ? Environment.GetEnvironmentVariable("Audience") : _configuration["TokenConfiguration:Audience"];
+            var jwtIssuer = env == "Production" ? Environment.GetEnvironmentVariable("Issuer") : _configuration["TokenConfiguration:Issuer"];
+            var jwtKey = env == "Production" ? Environment.GetEnvironmentVariable("JwtKey") : _configuration["Jwt:Key"];
+            var jwtExpires = env == "Production" ? Environment.GetEnvironmentVariable("ExpireHours") : _configuration["TokenConfiguration:ExpireHours"];
+
             var roles = await _userManager.GetRolesAsync(user);
 
             var claims = new[]
@@ -29,13 +35,13 @@ namespace HealthJobs.Application.Usuarios.Services
                 new Claim("role", roles[0])
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expiration = DateTime.UtcNow.AddHours(double.Parse(_configuration["TokenConfiguration:ExpireHours"]));
+            var expiration = DateTime.UtcNow.AddHours(double.Parse(jwtExpires));
 
             JwtSecurityToken token = new JwtSecurityToken(
-                issuer: _configuration["TokenConfiguration:Issuer"],
-                audience: _configuration["TokenConfiguration:Audience"],
+                issuer: jwtIssuer,
+                audience: jwtAudience,
                 claims: claims,
                 expires: expiration,
                 signingCredentials: credentials

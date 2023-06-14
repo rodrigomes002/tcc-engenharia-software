@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -18,7 +19,31 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
+var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+if (env == "Production")
+{
+    var databaseURL = Environment.GetEnvironmentVariable("DATABASE_URL");
+    var databaseURI = new Uri(databaseURL);
+    var userInfo = databaseURI.UserInfo.Split(':');
+    var pgBuilder = new NpgsqlConnectionStringBuilder
+    {
+        Host = databaseURI.Host,
+        Port = databaseURI.Port,
+        Username = userInfo[0],
+        Password = userInfo[1],
+        Database = databaseURI.LocalPath.TrimStart('/'),
+        SslMode = SslMode.Require,
+        TrustServerCertificate = true,
+    };
+
+    builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(pgBuilder.ConnectionString));
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
+}
+
 builder.Services.AddScoped<VagaService>();
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<JwtService>();

@@ -20,7 +20,7 @@ namespace HealthJobs.Application.Usuarios.Services
 
         public async Task<UsuarioToken> GeraToken(IdentityUser user)
         {
-            var env = Environment.GetEnvironmentVariable("Audience");
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var jwtAudience = env == "Production" ? Environment.GetEnvironmentVariable("Audience") : _configuration["TokenConfiguration:Audience"];
             var jwtIssuer = env == "Production" ? Environment.GetEnvironmentVariable("Issuer") : _configuration["TokenConfiguration:Issuer"];
             var jwtKey = env == "Production" ? Environment.GetEnvironmentVariable("JwtKey") : _configuration["Jwt:Key"];

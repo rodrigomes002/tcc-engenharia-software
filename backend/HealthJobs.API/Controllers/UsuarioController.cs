@@ -14,23 +14,34 @@ namespace HealthJobs.API.Controllers
         private readonly UsuarioService _usuarioService;
         private readonly JwtService _jwtService;
         private readonly IConfiguration _configuration;
-        public UsuarioController(UsuarioService usuarioService, JwtService jwtService, IConfiguration configuration)
+        private readonly ILogger<UsuarioService> _logger;
+        public UsuarioController(UsuarioService usuarioService, JwtService jwtService, IConfiguration configuration, ILogger<UsuarioService> logger)
         {
             this._usuarioService = usuarioService;
             this._configuration = configuration;
             this._jwtService = jwtService;
+            _logger = logger;
+
         }
 
         [AllowAnonymous]
         [HttpPost("cadastrar")]
         public async Task<IActionResult> Cadastrar([FromBody] UsuarioDTO dto)
         {
-            var result = await this._usuarioService.Cadastrar(dto);
+            try
+            {
+                var result = await this._usuarioService.Cadastrar(dto);
 
-            if (!result.Result.Succeeded)
-                return BadRequest(result.Result.Errors);
+                if (!result.Result.Succeeded)
+                    return BadRequest(result.Result.Errors);
 
-            return Ok(await _jwtService.GeraToken(result.User));
+                return Ok(await _jwtService.GeraToken(result.User));
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                throw;
+            }
         }
 
         [AllowAnonymous]

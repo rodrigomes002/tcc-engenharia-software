@@ -3,19 +3,22 @@ using HealthJobs.Application.Usuarios;
 using HealthJobs.Application.Usuarios.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace HealthJobs.Application.Autenticacao.Services
 {
     public class UsuarioService
     {
+        private readonly ILogger<UsuarioService> _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         private readonly IConfiguration _configuration;
 
-        public UsuarioService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public UsuarioService(ILogger<UsuarioService> logger, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
+            this._logger = logger;
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._configuration = configuration;
@@ -38,6 +41,7 @@ namespace HealthJobs.Application.Autenticacao.Services
 
         public async Task<CadastrarResult> Cadastrar(UsuarioDTO dto)
         {
+            _logger.LogInformation("Cadastrando usuário...");
             var user = new IdentityUser
             {
                 UserName = dto.Email,

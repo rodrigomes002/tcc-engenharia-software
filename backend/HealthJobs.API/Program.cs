@@ -17,9 +17,10 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+var jwtAudience = env == "Production" ? Environment.GetEnvironmentVariable("Audience") : builder.Configuration["TokenConfiguration:Audience"];
+var jwtIssuer = env == "Production" ? Environment.GetEnvironmentVariable("Issuer") : builder.Configuration["TokenConfiguration:Issuer"];
+var jwtKey = env == "Production" ? Environment.GetEnvironmentVariable("JwtKey") : builder.Configuration["Jwt:Key"];
 
 if (env == "Production")
 {
@@ -38,40 +39,12 @@ if (env == "Production")
     };
 
     builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(pgBuilder.ConnectionString));
-
-    var audience = Environment.GetEnvironmentVariable("Audience");
-    var issuer = Environment.GetEnvironmentVariable("Issuer");
-    var key = Environment.GetEnvironmentVariable("JwtKey");
-
-    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidAudience = audience,
-        ValidIssuer = issuer,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
-    }
-    );
 }
 else
 {
-    builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
-    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-   .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
-   {
-       ValidateIssuer = true,
-       ValidateAudience = true,
-       ValidateLifetime = true,
-       ValidAudience = builder.Configuration["TokenConfiguration:Audience"],
-       ValidIssuer = builder.Configuration["TokenConfiguration:Issuer"],
-       ValidateIssuerSigningKey = true,
-       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-   }
-   );
+    builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));   
 }
+
 
 builder.Services.AddScoped<VagaService>();
 builder.Services.AddScoped<UsuarioService>();
@@ -85,7 +58,18 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationContext>()
     .AddDefaultTokenProviders();
 
-
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+{
+    ValidateIssuer = true,
+    ValidateAudience = true,
+    ValidateLifetime = true,
+    ValidAudience = jwtAudience,
+    ValidIssuer = jwtIssuer,
+    ValidateIssuerSigningKey = true,
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+}
+);
 
 builder.Services.AddCors(option =>
 {

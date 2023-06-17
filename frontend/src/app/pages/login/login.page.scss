@@ -98,3 +98,12 @@ $font-32: 32px;
 .margin-top {
   margin-top: 30px;
 }
+
+//reponsive
+@media (max-width: 800px)
+{
+  .container{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}

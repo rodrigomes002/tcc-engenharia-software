@@ -62,7 +62,8 @@ export class CadastroPage extends BasePage implements OnInit {
           errors.forEach((error: any) => {
             let mensagem = JSON.stringify(error.description);
             this.notificacaoService.error(mensagem);
-          });
+          });       
+          this.notificacaoService.hide();   
         }
       );
     }

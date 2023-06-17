@@ -34,6 +34,12 @@ export class NotificacaoService {
     this.spinner.show();
   }
 
+  hide(){
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);  
+  }
+
   loaded(message?: any): Observable<any> {
     return Observable.create((observer: any) => {
       setTimeout(() => {

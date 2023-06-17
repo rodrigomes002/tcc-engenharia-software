@@ -50,6 +50,7 @@ export class LoginPage extends BasePage implements OnInit {
         },
         (errors) => {
           this.notificacaoService.error('Usuário ou senha inválidos');
+          this.notificacaoService.hide();
         }
       );
     }

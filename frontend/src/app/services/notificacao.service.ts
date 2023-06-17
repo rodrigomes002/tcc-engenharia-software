@@ -46,7 +46,7 @@ export class NotificacaoService {
         this.spinner.hide();
         observer.next();
         observer.complete();
-      }, 1000);
+      }, 500);
     });
   }
 }

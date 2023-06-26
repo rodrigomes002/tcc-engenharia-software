@@ -89,6 +89,7 @@
               pButton
               type="button"
               label="CANDIDATAR-SE"
+              [disabled]="usuario.tipo == 'Empresa'"
             ></button>
             <p style="color: #47D397; font-weight: 300;" *ngIf="vaga.candidaturaEnviada">CANDIDATURA REALIZADA</p>
           </div>

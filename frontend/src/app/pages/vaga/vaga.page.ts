@@ -53,7 +53,6 @@ export class VagaPage extends BasePage implements OnInit {
 
       this.vagas = result.vagas;
       this.count = result.count;
-      console.log(this.vagas);
       this.notificacaoService.loaded().subscribe(() => {});
     });
   }

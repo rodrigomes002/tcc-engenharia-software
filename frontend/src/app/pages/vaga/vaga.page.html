@@ -1,9 +1,11 @@
 <header class="header">
-  <h1>HEALTH JOBS</h1>
+  <h1><a href="/vagas">HEALTH JOBS</a></h1>
   <nav>
     <ul class="header-menu">
-      <li><a routerLink="vagas">Ver vagas</a></li>
-      <li *ngIf="isPerfil('Empresa')"><a routerLink="postar">Postar vaga</a></li>
+      <li><a href="/vagas">Ver vagas</a></li>
+      <li *ngIf="isPerfil('Empresa')">
+        <a routerLink="postar">Postar vaga</a>
+      </li>
       <li>{{usuario.email}}</li>
       <li><a href="" (click)="usuarioService.logout()">Sair</a></li>
     </ul>
@@ -79,11 +81,13 @@
       <div class="vaga-bg border-radius" *ngFor="let vaga of vagas">
         <div class="texto">
           <p><strong>{{vaga.cargo}}</strong></p>
+          <p>{{vaga.empresa}}</p>
           <p>{{vaga.local}}</p>
           <p>R$ {{vaga.salario}} por mês - Tempo integral</p>
           <p>{{vaga.descricao}}</p>
           <div class="margin-top20">
-            <button *ngIf="!vaga.candidaturaEnviada"
+            <button
+              *ngIf="!vaga.candidaturaEnviada"
               (click)="candidatarSe(vaga)"
               class="button-green"
               pButton
@@ -91,7 +95,12 @@
               label="CANDIDATAR-SE"
               [disabled]="usuario.tipo == 'Empresa'"
             ></button>
-            <p style="color: #47D397; font-weight: 300;" *ngIf="vaga.candidaturaEnviada">CANDIDATURA REALIZADA</p>
+            <p
+              style="color: #47d397; font-weight: 300"
+              *ngIf="vaga.candidaturaEnviada"
+            >
+              CANDIDATURA REALIZADA
+            </p>
           </div>
         </div>
       </div>

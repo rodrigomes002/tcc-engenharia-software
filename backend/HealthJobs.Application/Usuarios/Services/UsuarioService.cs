@@ -59,10 +59,11 @@ namespace HealthJobs.Application.Autenticacao.Services
                     Name = dto.Tipo
                 };
                 
-                var resultRole = await _roleManager.CreateAsync(role);
-                
-                if(resultRole.Succeeded)
-                    await _userManager.AddToRoleAsync(user, role.Name);
+                var roleDb = await _roleManager.GetRoleNameAsync(role);
+                if(roleDb != role.Name)
+                    await _roleManager.CreateAsync(role);
+
+                await _userManager.AddToRoleAsync(user, role.Name);
             }
 
             var result = new CadastrarResult();

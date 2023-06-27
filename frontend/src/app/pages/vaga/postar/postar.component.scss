@@ -71,3 +71,13 @@ label {
 h2 {
   text-align: center;
 }
+
+
+//reponsive
+@media (max-width: 500px)
+{
+  .form{
+    width: 350px;
+    height: 660px;
+  }
+}

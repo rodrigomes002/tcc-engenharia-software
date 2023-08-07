@@ -59,11 +59,13 @@ export class CadastroPage extends BasePage implements OnInit {
           }
         },
         (errors) => {
-          errors.forEach((error: any) => {
-            let mensagem = JSON.stringify(error.description);
-            this.notificacaoService.error(mensagem);
-          });       
-          this.notificacaoService.hide();   
+          if(errors.length > 0){
+            errors.forEach((error: any) => {
+              let mensagem = JSON.stringify(error.description);
+              this.notificacaoService.error(mensagem);
+            });
+          }
+          this.notificacaoService.hide();
         }
       );
     }
